@@ -25,7 +25,7 @@
 rm(list = ls(all.names = TRUE))
 
 # Installing & loading necessary packages
-if (!require("pacman")) install.packages("pacman")
+if (!require("pacman", quietly = TRUE)) install.packages("pacman")
 pacman::p_load("magrittr",
                "dplyr",
                "stringr",
