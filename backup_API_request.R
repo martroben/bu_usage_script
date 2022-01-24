@@ -249,9 +249,7 @@ safe_get_name <- function(code, key) {
 }
 
 
-names_from_codes <- function(codes, key) {
-  
-  key <- c(.GlobalEnv$device_info_codes, .GlobalEnv$session_info_codes)
+names_from_codes <- function(codes, key = c(.GlobalEnv$device_info_codes, .GlobalEnv$session_info_codes)) {
   
   codes %>%
     purrr::map_chr(remove_D_component) %>%
@@ -404,8 +402,8 @@ session_info_formatted <- all_session_info %>%
   dplyr::mutate(
     across(all_of(time_variables), ~as.numeric(.x) %>% lubridate::as_datetime()),
     across(all_of(amount_of_data_variables), ~as.numeric(.x) %>% magrittr::divide_by(2^10 * 2^10 * 2^10) %>% round(2)),
-    across(all_of(result_code_variables), ~purrr::map_chr(.x, safe_get_name, key = .GlobalEnv$session_status_key)),
-    active_data_sources = purrr::map_chr(active_data_sources, safe_get_name, key = .GlobalEnv$data_sources_key),
+    across(all_of(result_code_variables), ~names_from_codes(.x, key = .GlobalEnv$session_status_key)),
+    active_data_sources = names_from_codes(active_data_sources, key = .GlobalEnv$data_sources_key),
     session_duration = session_duration %>% as.numeric() %>% magrittr::divide_by(60) %>% round(2)
     ) %>%
   dplyr::rename(
