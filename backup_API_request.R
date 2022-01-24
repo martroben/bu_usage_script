@@ -180,46 +180,6 @@ partner_list_json <- function(my_company_id, access_visa) {
 }
 
 
-get_partner_id <- function(partner_name, name_id_table) {
-  
-  name_id_table %>%
-    dplyr::filter(Name == partner_name) %>%
-    dplyr::pull(Id)
-}
-
-
-partner_devices_json <- function(company_id, access_visa) {
-  
-  # https://documentation.n-able.com/backup/userguide/documentation/Content/service-management/json-api/enumerate-devices.htm
-  fetch_devices_body <- list(
-    id = "jsonrpc",
-    visa = access_visa,
-    method = "EnumerateAccounts",
-    jsonrpc = "2.0",
-    params = list(
-      partnerId = company_id))
-  
-  jsonlite::toJSON(fetch_devices_body, auto_unbox = TRUE)
-}
-
-
-get_partner_devices <- function(partner_name, partners_list, access_visa) {
-
-  company_id <- get_partner_id(partner_name, partners_list)
-  fetch_devices_reply_raw <- httr::POST(
-    url = .GlobalEnv$API_url,
-    body = partner_devices_json(company_id, access_visa))
-  
-  fetch_devices_reply_raw %>%
-    httr::content(as = "text", encoding = .GlobalEnv$API_data_encoding) %>%
-    jsonlite::fromJSON() %>%
-    purrr::pluck("result", "result") %>%
-    dplyr::select(Name, Id, CreationTime) %>%
-    dplyr::mutate(CreationTime = lubridate::as_datetime(CreationTime)) %>%
-    dplyr::mutate(partner = partner_name, .before = 1)
-}
-
-
 device_info_json <- function(partner_id, column_codes, access_visa, device_name = NA) {
   
   fetch_device_info_body <- list(
