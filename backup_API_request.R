@@ -93,7 +93,7 @@ device_info_codes <<- c(
 session_info_codes <<- c(
   
   # https://documentation.n-able.com/backup/userguide/documentation/Content/service-management/json-api/API-column-codes.htm
-  # Have to combine with data souce code. eg. D1F0
+  # Have to combine with data source to get a functional column code. eg. D1F0, D1F3, etc.
   last_session_status = "F0",
   last_session_selected_size = "F3",
   last_session_sent_size = "F5",
