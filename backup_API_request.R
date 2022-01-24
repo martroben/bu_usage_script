@@ -1,20 +1,21 @@
 #!/usr/bin/env Rscript
 
 
-#######################################################################################################
-##                                                                                                   ##
-##  Script name: backup_API_request.R                                                                ##
-##  Purpose of script: pull data from N-able Backup & Recovery API                                   ##
-##                                                                                                   ##
-##  Author: Mart Roben                                                                               ##
-##  Date Created: 24. Jan 2022                                                                       ##
-##                                                                                                   ##
-##  Copyright: BSD-3-Clause                                                                          ##
-##  https://github.com/martroben/nable_scripts                                                       ##
-##                                                                                                   ##
-##  Contact: mart@altacom.eu                                                                         ##
-##                                                                                                   ##
-#######################################################################################################
+########################################################################################################################################
+##                                                                                                                                    ##
+##  Script name: backup_API_request.R                                                                                                 ##
+##  Purpose of script: pull data from N-able Backup & Recovery API                                                                    ##
+##  API documentation: https://documentation.n-able.com/backup/userguide/documentation/Content/service-management/json-api/home.htm   ##
+##                                                                                                                                    ##
+##  Author: Mart Roben                                                                                                                ##
+##  Date Created: 24. Jan 2022                                                                                                        ##
+##                                                                                                                                    ##
+##  Copyright: BSD-3-Clause                                                                                                           ##
+##  https://github.com/martroben/nable_scripts                                                                                        ##
+##                                                                                                                                    ##
+##  Contact: mart@altacom.eu                                                                                                          ##
+##                                                                                                                                    ##
+########################################################################################################################################
 
 
 #################
@@ -42,7 +43,8 @@ pacman::p_load(
 API_url <<- "https://api.backup.management/jsonapi"
 API_data_encoding <<- "UTF-8"
 
-# FOR SECURITY REASONS, DON'T HARDCODE THESE INFO INTO YOUR SCRIPT
+# Defaults added for testing purposes
+# FOR SECURITY REASONS, DON'T HARDCODE THIS INFO INTO YOUR SCRIPT
 username_default <- "APIuser@mail.com"
 password_default <- "APIuser.password"
 my_company_name_default <- "My Company"
