@@ -10,7 +10,7 @@
 ##  Date Created: 29. Dec 2021                                                                       ##
 ##                                                                                                   ##
 ##  Copyright: BSD-3-Clause                                                                          ##
-##  https://github.com/martroben/nable_formatting                                                    ##
+##  https://github.com/martroben/nable_scripts                                                       ##
 ##                                                                                                   ##
 ##  Contact: mart@altacom.eu                                                                         ##
 ##                                                                                                   ##
