@@ -105,7 +105,7 @@ session_info_codes <<- c(
   session_duration = "F12")
 
 
-data_sources <<- c(
+data_sources_key <<- c(
   
   # https://documentation.n-able.com/backup/userguide/documentation/Content/service-management/json-api/API-column-codes.htm
   "Files and Folders" = "D01",
@@ -306,6 +306,7 @@ get_session_info <- function(..., query_fields) {
 }
 
 
+
 #############
 # Execution #
 #############
@@ -404,7 +405,7 @@ session_info_formatted <- all_session_info %>%
     across(all_of(time_variables), ~as.numeric(.x) %>% lubridate::as_datetime()),
     across(all_of(amount_of_data_variables), ~as.numeric(.x) %>% magrittr::divide_by(2^10 * 2^10 * 2^10) %>% round(2)),
     across(all_of(result_code_variables), ~purrr::map_chr(.x, safe_get_name, key = .GlobalEnv$session_status_key)),
-    active_data_sources = purrr::map_chr(active_data_sources, safe_get_name, key = .GlobalEnv$data_sources),
+    active_data_sources = purrr::map_chr(active_data_sources, safe_get_name, key = .GlobalEnv$data_sources_key),
     session_duration = session_duration %>% as.numeric() %>% magrittr::divide_by(60) %>% round(2)
     ) %>%
   dplyr::rename(
