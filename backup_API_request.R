@@ -263,7 +263,7 @@ names_from_codes <- function(codes, key = c(.GlobalEnv$device_info_codes, .Globa
 
 get_partner_device_info <- function(partner_id, query_fields, access_visa, device_name = NA) {
   
-  # add device name, device id and active data source fields
+  # add device name and device id fields if not included
   if (!("I1" %in% query_fields)) query_fields <- c("I1", query_fields)
   if (!("I0" %in% query_fields)) query_fields <- c("I0", query_fields)
   
