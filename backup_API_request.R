@@ -359,18 +359,20 @@ all_devices <- partners$Id %>%
       access_visa))
 
 
-# get session info
-session_query_fields <- .GlobalEnv$session_info_codes %>%
-  magrittr::extract(
-    c("last_session_time",
-      "last_session_status",
-      "last_session_selected_size",
-      "last_successful_session_time",
-      "last_successful_session_status",
-      "last_completed_session_time",
-      "last_completed_session_status",
-      "session_duration",
-      "last_session_sent_size")) %>% 
+# Get session info
+session_query_variables <- c(
+  "last_session_time",
+  "last_session_status",
+  "last_session_selected_size",
+  "last_successful_session_time",
+  "last_successful_session_status",
+  "last_completed_session_time",
+  "last_completed_session_status",
+  "session_duration",
+  "last_session_sent_size")
+
+session_query_codes <- .GlobalEnv$session_info_codes %>%
+  magrittr::extract(session_query_variables) %>% 
   unname()
 
 all_data_sources <- all_devices %>%
@@ -378,7 +380,7 @@ all_data_sources <- all_devices %>%
   purrr::pmap_dfr(~tibble::tibble(...))
 
 all_session_info <- all_data_sources %>%
-  purrr::pmap_dfr(get_session_info, query_fields = session_query_fields)
+  purrr::pmap_dfr(get_session_info, query_fields = session_query_codes)
 
 
 # format for presentation
