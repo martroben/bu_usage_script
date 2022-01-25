@@ -26,6 +26,7 @@ if (!require("pacman", quietly = TRUE)) install.packages("pacman")
 
 pacman::p_load(
   "httr",
+  "tibble",
   "magrittr",
   "dplyr",
   "stringr",
