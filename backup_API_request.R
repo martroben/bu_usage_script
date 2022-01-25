@@ -115,7 +115,7 @@ data_sources_key <<- c(
   "Files and Folders" = "D01",
   "System State" = "D02",
   "MsSql" = "D03",
-  "MS 365 SharePoint" = "D05",
+  "M365 SharePoint" = "D05",
   "Network Shares" = "D06",
   "VSS System State" = "D07",
   "VMware VMs" = "D08",
@@ -126,8 +126,8 @@ data_sources_key <<- c(
   "MySql" = "D15",
   "Virtual Disaster Recovery" = "D16",
   "Bare Metal Restore" = "D17",
-  "MS 365 Exchange" = "D19",
-  "MS 365 OneDrive" = "D20")
+  "M365 Exchange" = "D19",
+  "M365 OneDrive" = "D20")
 
 
 session_status_key <<- c(
@@ -377,7 +377,7 @@ all_data_sources <- all_devices %>%
   purrr::pmap_dfr(~tibble::tibble(...))
 
 all_session_info <- all_data_sources %>%
-  pmap_dfr(get_session_info, query_fields = session_query_fields)
+  purrr::pmap_dfr(get_session_info, query_fields = session_query_fields)
 
 
 # format for presentation
@@ -394,6 +394,23 @@ result_code_variables <- c(
 amount_of_data_variables <- c(
   "last_session_sent_size",
   "last_session_selected_size")
+
+variables_to_keep <- c(
+  "partner_id",
+  "device_id",
+  "partner",
+  "device_name",
+  "data_source",
+  "last_session_time",
+  "session_duration_minutes",
+  "last_session_status",
+  "last_session_selected_size_GB",
+  "last_session_sent_size_GB",
+  "last_completed_session_time",
+  "last_completed_session_status",
+  "last_successful_session_time",
+  "last_successful_session_status")
+
 
 session_info_formatted <- all_session_info %>%
   dplyr::inner_join(
@@ -417,22 +434,12 @@ session_info_formatted <- all_session_info %>%
     session_duration_minutes = session_duration,
     data_source = active_data_sources
     ) %>%
-  dplyr::select(
-    partner_id,
-    device_id,
-    partner,
-    device_name,
-    data_source,
-    last_session_time,
-    session_duration_minutes,
-    last_session_status,
-    last_session_selected_size_GB,
-    last_session_sent_size_GB,
-    last_completed_session_time,
-    last_completed_session_status,
-    last_successful_session_time,
-    last_successful_session_status)
+  dplyr::select(all_of(variables_to_keep))
 
 
-# Return data
+
+###############
+# Return data #
+###############
+
 session_info_formatted
