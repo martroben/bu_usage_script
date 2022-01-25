@@ -209,9 +209,9 @@ device_info_json <- function(partner_id, column_codes, access_visa, device_name 
 
 
 trim_extra_zero <- function(code) {
-  # Turn string "I00" to "I0"
   
-  if (stringr::str_detect(code, "\\w0[0-9]")) {
+  # Turn string "I00" to "I0" (for all leading letters except "D")
+  if (stringr::str_detect(code, "[A-CE-Za-ce-z]0[0-9]")) {
     
     trimmed_string <- code %>%
       stringr::str_match("(\\w)0([0-9])") %>%
@@ -225,9 +225,10 @@ trim_extra_zero <- function(code) {
 
 
 remove_D_component <- function(code) {
-  # Turns string "D1F0" to "F0"
   
-  if (stringr::str_detect(code, "D\\d+")) {
+  # Turns string "D1F0" to "F0"
+  # Only "D1" without the second part is not modified
+  if (stringr::str_detect(code, "D\\d+[A-Za-z]")) {
     
     trimmed_string <- code %>% 
       stringr::str_match("D\\d+(.*)") %>%
