@@ -215,7 +215,7 @@ trim_extra_zero <- function(code) {
   if (stringr::str_detect(code, "[A-CE-Za-ce-z]0[0-9]")) {
     
     trimmed_string <- code %>%
-      stringr::str_match("(\\w)0([0-9])") %>%
+      stringr::str_match("([A-CE-Za-ce-z])0([0-9])") %>%
       magrittr::extract(c(2, 3)) %>% 
       purrr::reduce(stringr::str_c)
     
