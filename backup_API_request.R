@@ -342,19 +342,20 @@ partners <- partners_reply_raw %>%
 
 
 # Get device info
-device_query_fields <- .GlobalEnv$device_info_codes %>%
-  magrittr::extract(
-    c("device_id",
-      "partner",
-      "device_name",
-      "active_data_sources")) %>% 
+device_query_variables <- c(
+  "partner",
+  "device_name",
+  "active_data_sources")
+
+device_query_codes <- .GlobalEnv$device_info_codes %>%
+  magrittr::extract(device_query_variables) %>% 
   unname()
 
 all_devices <- partners$Id %>%
   purrr::map_dfr(
     ~get_partner_device_info(
       partner_id = .x,
-      device_query_fields,
+      device_query_codes,
       access_visa))
 
 
