@@ -721,7 +721,7 @@ if (length(non_matching_totals) > 0) {
     stringr::str_flatten("\n")
   
   warning_str <- stringr::str_c(
-    "The following Grand Totals and usage line totals don't match:\n",
+    "The following 'grand totals' and usage line totals don't match:\n",
     non_matching_info)
   
   rlang::warn(warning_str)
@@ -729,7 +729,7 @@ if (length(non_matching_totals) > 0) {
 } else {
   
   info_msg <- c(
-    "Checked if usage line totals and reported Grand Totals match for each client.",
+    "Checked if usage line totals and reported 'grand totals' match for each client.",
      i = "All good!")
   
   rlang::inform(info_msg)
@@ -896,7 +896,7 @@ if (file.exists(output_xlsx_path)) {
     info_msg <- c(
       "Script finished!",
       i = "User chose not to overwrite existing xlsx file.",
-      i = "Parsed pdf data not exported.")
+      i = "Pdf data not exported to xlsx.")
     
     rlang::inform(info_msg)
     abort_quietly()
@@ -914,7 +914,7 @@ openxlsx::saveWorkbook(
 # Fin
 info_msg <- c(
   "Script finished!",
-  i = "Parsed pdf data exported to xlsx.",
+  i = "Pdf data parsed and exported to xlsx.",
   i = stringr::str_glue("Output file path: {output_xlsx_path}\n\n"),
   "Take a minute to savour the absurdity of having to use a 1k-line regex parser script, because a global software vendor can't be bothered to issue machine-readable invoices. Sad.")
 
