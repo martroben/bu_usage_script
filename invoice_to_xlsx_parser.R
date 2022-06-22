@@ -10,6 +10,9 @@
 ##         Parsing pdf-s is a messy business, so there are many ways for this script to break,       ##
 ##         most of which are yet to be discovered and fixed.                                         ##
 ##                                                                                                   ##
+##         Not needed anymore since June 2022, since N-able is providing machine readable            ##
+##         invoices now.                                                                             ##
+##                                                                                                   ##
 ##  Author: Mart Roben                                                                               ##
 ##  Date Created: 12. Feb 2022                                                                       ##
 ##                                                                                                   ##
@@ -910,12 +913,3 @@ openxlsx::saveWorkbook(
   file = output_xlsx_path,
   overwrite = replace_file)
 
-
-# Fin
-info_msg <- c(
-  "Script finished!",
-  i = "Pdf data parsed and exported to xlsx.",
-  i = stringr::str_glue("Output file path: {output_xlsx_path}\n\n"),
-  "Take a minute to savour the absurdity of having to use a 1k-line regex parser script, because a global software vendor can't be bothered to issue machine-readable invoices. Sad.")
-
-rlang::inform(info_msg)
